@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>教师作业管理系统</title>
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script th:inline="javascript">
+        // 删除表单
+        function deleteTr(id)
+        {
+            // 异步提交数据到action/add_action.php页面
+            $.ajax(
+                {
+                    url: "delete",
+                    contentType:"application/json",
+                    dataType: "json",
+                    data:id,
+                    type: "post",
+                    success:function(data)
+                    {
+                        if(data > 0)
+                        {
+
+                            var msg = "删除";
+                            if(act == "edit") msg = "编辑";
+                            $("#tip").html("<span style='color:blueviolet'>恭喜，" +msg+ "成功！</span>");
+                            // document.location.href='system_notice.php'
+                            alert(msg + "OK！");
+                            location.reload();
+                        }
+                        else
+                        {
+                            $("#tip").html("<span style='color:red'>失败，请重试</span>");
+                            alert('操作失败');
+                        }
+                    },
+                    error:function()
+                    {
+                        alert('请求出错');
+                    },
+                    complete:function()
+                    {
+                        $('#acting_tips').hide();
+                    }
+                });
+
+            return false;
+        }
+        // 提交表单
+        function check_form()
+        {
+            var form_data = $('#form_data').serializeArray();
+            var obj = {};
+            for (var i =0;i<form_data.length;i++){
+                obj[form_data[i].name] = form_data[i].value;
+            }
+            var req_json = JSON.stringify(obj)
+            $.ajax(
+                {
+                    url: "add",
+                    contentType:"application/json",
+                    dataType: "json",
+                    data:req_json,
+                    type: "post",
+                    success:function(data)
+                    {
+                        if(data > 0)
+                        {
+
+                            var msg = "添加";
+                            if(act == "edit") msg = "编辑";
+                            $("#tip").html("<span style='color:blueviolet'>恭喜，" +msg+ "成功！</span>");
+                            // document.location.href='system_notice.php'
+                            alert(msg + "OK！");
+                            location.reload();
+                        }
+                        else
+                        {
+                            $("#tip").html("<span style='color:red'>失败，请重试</span>");
+                            alert('操作失败');
+                        }
+                    },
+                    error:function()
+                    {
+                        location.reload();
+                    },
+                    complete:function()
+                    {
+                        $('#acting_tips').hide();
+                    }
+                });
+            return false;
+        }
+
+        function js_replace(id,name){
+            $("#id").attr("value",id);
+            $("#classname").attr("value",name);
+        }
+
+        $(function () { $('#addUserModal').on('hide.bs.modal', function () {
+            // 关闭时清空edit状态为add
+            $("#act").val("add");
+            location.reload();
+        })
+        });
+    </script>
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+
+<body>
+<!--引入抽取的topbar-->
+<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--引入侧边栏-->
+        <div th:replace="commons/bar::#sidebar(activeUri='class/emps')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <button class="btn btn-primary" data-toggle="modal"  data-target="#addUserModal" th:type="button">课程发布</button>
+            <form method="post" action="" class="form-horizontal" role="form" id="form_data" onsubmit="return check_form()" style="margin: 20px;">
+                <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="margin-right:200px" id="myModalLabel" >
+                                    课程发布
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label for="id" class="col-sm-3 control-label">输入id</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="id" name="id" value=""
+                                                   placeholder="请输入id">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="classname" class="col-sm-3 control-label">输入课程</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="classname" name="classname" value=""
+                                                   placeholder="请输入课程">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    提交
+                                </button>
+                                <span id="tip"> </span>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>课程</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody th:id="tbodyEmps">
+                    <tr th:each="emp:${emps}">
+                        <td th:name="id" th:text="${emp.id}"></td>
+                        <td th:name="name">[[${emp.name}]]</td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal" th:data-id = "${emp.id} "
+                               th:data-name = "${emp.name}" th:onclick="js_replace(this.getAttribute('data-id'),this.getAttribute('data-name'))" >编辑</a>
+                            <a th:href="@{'/class/delete/'+${emp.id}}" class="btn btn-sm btn-danger deleteBtn">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <form id="deleteEmpForm"  method="post">
+            <input type="hidden" name="_method" value="delete"/>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.0.0/jquery.js}"></script>
+<script type="text/javascript" src="js/popper.min.js" th:src="@{/webjars/popper.js/1.14.3/dist/popper.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.js}"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="js/feather.min.js" th:src="@{/js/feather.min.js}"></script>
+<script>
+    feather.replace()
+</script>
+
+</body>
+</html>

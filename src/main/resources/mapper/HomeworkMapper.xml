@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.springboot.mapper.HomeworkMapper">
+
+    <select id="findById" resultType="com.atguigu.springboot.bean.Vo.HomeworkVo">
+        SELECT
+        h.id,
+        c.name,
+        h.title,
+        h.introducion,
+        h.time
+        FROM
+        sys_homework h
+        LEFT JOIN sys_class c ON c.id = h.class_id
+        <where>
+            c.teacher_id = #{id}
+        </where>
+    </select>
+
+    <insert id="addById">
+        INSERT into sys_homework
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="classId != null  and classId != ''">class_id,</if>
+            <if test="introducion != null  and introducion != ''">introducion,</if>
+            <if test="title != null  and title != ''">title,</if>
+            <if test="time != null ">time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="classId != null  and classId != ''">#{classId},</if>
+            <if test="introducion != null  and introducion != ''">#{introducion},</if>
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="time != null ">#{time},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.atguigu.springboot.bean.Vo.HomeworkVo">
+        update sys_homework
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="classId != null  and classId != ''">class_id = #{classId},</if>
+            <if test="introducion != null  and introducion != ''">introducion = #{introducion},</if>
+            <if test="title != null  and title != ''">title = #{title},</if>
+            <if test="time != null ">time = #{time},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from sys_homework where id = #{id}
+    </delete>
+</mapper>

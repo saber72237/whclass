@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <meta name="description" content="个人资料">
+    <meta name="Keywords" content="个人资料">
+    <!--禁止移动端缩放网页-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" th:href="@{/css/base.css}" href="css/base.css">
+    <link rel="stylesheet" th:href="@{/css/userinfo.css}" href="css/login.css">
+    <!-- Bootstrap core CSS -->
+    <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+</head>
+<body>
+<div th:replace="commons/bar::topbar"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--引入侧边栏-->
+        <div th:replace="commons/bar::#sidebar(activeUri='user')"></div>
+<!--背景图片-->
+<img id="bg" class="bg" th:src="@{/img/index_bg_xl.jpg}" src="../images/index_bg_xl.jpg">
+<!--内容-->
+<div class="container-fluid content">
+    <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-8 col-lg-8 col-xl-6">
+            <div class="card">
+                <div class="card-header"><h5>用户信息</h5>
+                    <a th:href="@{#}"><button type="button" class="btn btn-outline-primary btn-sm">修改</button></a></div>
+                <div class="card-body">
+                    <div class="username">
+                        <span class="title">用户名</span>
+                        <span class="text" th:text="${emps.name}"></span>
+                    </div>
+                    <hr>
+                    <div class="username">
+                        <span class="title">年龄</span>
+                        <span class="text" th:text="${emps.age}"></span>
+                    </div>
+                    <hr>
+                    <div class="username">
+                        <span class="title">电话</span>
+                        <span class="text" th:text="${emps.tel}"></span>
+                    </div>
+                    <hr>
+                    <div class="username">
+                        <span class="title">姓名</span>
+                        <span class="text" th:text="${emps.username}"></span>
+                    </div>
+                    <hr>
+                    <div class="username">
+                        <span class="title">性别</span>
+                        <span class="text" th:text="${emps.gender}"></span>
+                    </div>
+                    <hr>
+                    <div class="username">
+                        <span class="title">简介</span>
+                        <span class="text" th:text="${emps.introduce}"></span>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
