@@ -40,4 +40,16 @@
     <delete id="deleteById">
         delete from sys_class where id = #{id}
     </delete>
+
+
+    <select id="findByName" resultType="com.atguigu.springboot.bean.Vo.ClassSearchVo">
+        SELECT
+        c.id, c.name className, t.name teacherName
+        FROM
+        sys_class c
+        LEFT JOIN sys_teacher t ON c.teacher_id = t.id
+        <where>
+            c.name = #{search}
+        </where>
+    </select>
 </mapper>

@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
 
-/**
- * @author ：xxx
- * @description：TODO
- * @date ：2021/1/8 17:33
- */
 @Controller
 @RequestMapping("/message")
 public class MessageController {
@@ -39,6 +34,7 @@ public class MessageController {
 
     @PostMapping("/update")
     public String update(@RequestBody Message message){
+        message.setState(1);
         Boolean classVos = messageService.updateById(message);
         return "emp/message";
     }

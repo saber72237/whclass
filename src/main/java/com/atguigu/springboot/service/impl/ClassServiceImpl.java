@@ -1,12 +1,14 @@
 package com.atguigu.springboot.service.impl;
 
 import com.atguigu.springboot.bean.Class;
+import com.atguigu.springboot.bean.Vo.ClassSearchVo;
 import com.atguigu.springboot.mapper.ClassMapper;
 import com.atguigu.springboot.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author ：xxx
@@ -37,5 +39,9 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public boolean updateById(Class classes) {
         return classMapper.updateById(classes);
+    }
+
+    public List<ClassSearchVo> findByName(String search){
+        return classMapper.findByName(search);
     }
 }

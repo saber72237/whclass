@@ -33,13 +33,13 @@
     </insert>
 
     <update id="updateById" parameterType="com.atguigu.springboot.bean.Message">
-        update sys_class
+        update sys_message
         <trim prefix="SET" suffixOverrides=",">
             <if test="endTime != null  and endTime != ''">end_time = #{endTime},</if>
             <if test="response != null  and response != ''">response = #{response},</if>
             <if test="state != null  and state != ''">state = #{state},</if>
         </trim>
-        where teacher_id = #{teacherId}
+        where id = #{id}
     </update>
 
     <delete id="deleteById">

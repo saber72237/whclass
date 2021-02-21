@@ -1,6 +1,7 @@
 package com.atguigu.springboot.control;
 
 import com.atguigu.springboot.bean.Class;
+import com.atguigu.springboot.bean.Vo.ClassSearchVo;
 import com.atguigu.springboot.bean.Vo.HomeworkVo;
 import com.atguigu.springboot.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author ：xxx
@@ -46,5 +49,13 @@ public class ClassController {
     public String delete(@PathVariable("id") Integer id){
         Boolean classVos = classService.deleteById(id);
         return "redirect:http://localhost:8080/crud/class/emps";
+    }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<ClassSearchVo> classSearch(String search){
+        List<ClassSearchVo> classSearchVoList = new ArrayList<ClassSearchVo>();
+        classSearchVoList = classService.findByName(search);
+        return classSearchVoList;
     }
 }

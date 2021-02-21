@@ -20,6 +20,7 @@
         // 提交表单
         function check_form()
         {
+
             var form_data = $('#form_data').serializeArray();
             var obj = {};
             for (var i =0;i<form_data.length;i++){
@@ -30,7 +31,7 @@
             // 异步提交数据到action/add_action.php页面
             $.ajax(
                 {
-                    url: "add",
+                    url: "update",
                     contentType:"application/json",
                     dataType: "json",
                     data:req_json,
@@ -72,6 +73,13 @@
             location.reload();
         })
         });
+        function js_replace(id,request,title,authorId,creatTime){
+            $("#id").attr("value",id);
+            $("#Mrequest").attr("value",request);
+            $("#title").attr("value",title);
+            $("#authorId").attr("value",authorId);
+            $("#creatTime").attr("value",creatTime);
+        }
     </script>
     <style type="text/css">
         /* Chart.js */
@@ -124,32 +132,37 @@
                             <div class="modal-body">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
-                                        <label for="classId" class="col-sm-3 control-label">留言标题</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="classId" name="classId" value="">
+                                            <input type="hidden" class="form-control" id="id" name="id" value="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="title" class="col-sm-3 control-label">留言标题</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="title" name="title" value="">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="title" class="col-sm-3 control-label">留言者</label>
+                                        <label for="authorId" class="col-sm-3 control-label">留言者</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="title" value="" id="title"
+                                            <input type="text" class="form-control" name="authorId" value="" id="authorId"
                                                    placeholder="留言者">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="time" class="col-sm-3 control-label">留言时间</label>
+                                        <label for="creatTime" class="col-sm-3 control-label">留言时间</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" name="time" value="" id="time"
+                                            <input type="text" class="form-control" name="creatTime" value="" id="creatTime"
                                                    placeholder="时间">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="request" class="col-sm-3 control-label">留言内容</label>
+                                        <label for="Mrequest" class="col-sm-3 control-label">留言内容</label>
                                         <div class="col-sm-9">
-											<textarea  class="form-control"  name="request" value="" id="request"
+											<input  type="text" class="form-control"  name="Mrequest" value="" id="Mrequest"
                                                        placeholder="内容">
-											</textarea>
+											</input>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -194,7 +207,11 @@
                         <td th:name="authorId" th:text="${emp.authorId}"></td>
                         <td th:name="creatTime" th:text="${emp.creatTime}"></td>
                         <td>
-                            <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal">回复</a>
+                            <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal"
+                            th:data-id="${emp.id}" th:data-request="${emp.request}" th:data-title="${emp.title}"
+                               th:data-authorId="${emp.authorId}" th:data-creatTime="${emp.creatTime}"
+                            th:onclick="js_replace(this.getAttribute('data-id'),this.getAttribute('data-request'),
+                            this.getAttribute('data-title'),this.getAttribute('data-authorId'),this.getAttribute('data-creatTime'))">回复</a>
                         </td>
                     </tr>
                     </tbody>
