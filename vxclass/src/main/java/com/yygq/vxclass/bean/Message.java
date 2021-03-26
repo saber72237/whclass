@@ -20,4 +20,5 @@ public class Message {
     private String request;
     private String response;
     private Integer state;
+    private Integer classId;
 }

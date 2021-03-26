@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yygq.vxclass.mapper.DocMapper">
+
+    <select id="findByClassId" resultType="com.yygq.vxclass.bean.Doclist">
+        SELECT
+        *
+        FROM
+        sys_doclist
+        <where>
+            class_id = #{classId} and prefix_id = 0
+        </where>
+    </select>
+
+    <select id="findDoc" resultType="com.yygq.vxclass.bean.Doc">
+        SELECT
+        *
+        FROM
+        sys_classdoc
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <select id="editPassword1" resultType="integer">
+        select count(*)
+        from sys_doclist
+        where
+        id = #{id} and password = #{password}
+    </select>
+
+    <select id="editPassword2" resultType="integer">
+        select count(*)
+        from sys_classdoc
+        where
+        id = #{id} and password = #{password}
+    </select>
+
+    <select id="findById1" resultType="integer">
+        select count(*)
+        from sys_doclist
+        where
+        id = #{id} and password != null and password != ''
+    </select>
+
+    <select id="findById2" resultType="integer">
+        select count(*)
+        from sys_classdoc
+        where
+        id = #{id} and password != null and password != ''
+    </select>
+
+    <select id="getList" resultType="com.yygq.vxclass.bean.Vo.ClassDocVo">
+        SELECT
+        d.id,
+        d.name
+        FROM
+        sys_doclist d
+        <where>
+            d.prefix_id = #{prefixId}
+        </where>
+    </select>
+
+    <select id="getDocList" resultType="com.yygq.vxclass.bean.Vo.ClassDocVo">
+        SELECT
+        d.id,
+        d.name,
+        d.path
+        FROM
+        sys_classdoc d
+        <where>
+            d.doclist_id = #{prefixId}
+        </where>
+    </select>
+
+    <insert id="addById">
+        INSERT into sys_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="teacherId != null  and teacherId != ''">teacher_id,</if>
+            <if test="name != null  and name != ''">name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="teacherId != null  and teacherId != ''">#{teacherId},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+    </insert>
+
+    <insert id="saveDoclist">
+        INSERT into sys_classdoc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="path != null  and path != ''">path,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="password != null  and password != ''">password,</if>
+            <if test="prefixId != null  and prefixId != ''">doclist_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="path != null  and path != ''">#{path},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="password != null  and password != ''">#{password},</if>
+            <if test="prefixId != null  and prefixId != ''">#{prefixId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.yygq.vxclass.bean.Doclist">
+        update sys_class
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="teacherId != null  and teacherId != ''">teacher_id = #{teacherId},</if>
+            <if test="name != null  and name != ''">name = #{name},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from sys_class where id = #{id}
+    </delete>
+
+
+    <select id="findByName" resultType="com.yygq.vxclass.bean.Doclist">
+        SELECT
+        c.id, c.name className, t.name teacherName
+        FROM
+        sys_class c
+        LEFT JOIN sys_teacher t ON c.teacher_id = t.id
+        <where>
+            c.name = #{search}
+        </where>
+    </select>
+</mapper>

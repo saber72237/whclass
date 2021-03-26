@@ -12,4 +12,5 @@ public class Class {
     private Integer id;
     private Integer teacherId;
     private String name;
+    private String introduce;
 }

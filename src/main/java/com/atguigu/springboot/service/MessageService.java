@@ -9,4 +9,6 @@ public interface MessageService {
     public Collection<Message> findById(Integer id);
 
     public boolean updateById(Message message);
+
+    public boolean deleteById(Integer id);
 }

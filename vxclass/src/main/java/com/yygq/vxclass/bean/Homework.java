@@ -12,7 +12,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class Homework {
     private Integer id;
-    private Integer teacherId;
+    private Integer classId;
+    private String time;
     private String Introducion;
-    private String tiele;
+    private String title;
 }

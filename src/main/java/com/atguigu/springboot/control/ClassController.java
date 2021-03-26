@@ -1,5 +1,7 @@
 package com.atguigu.springboot.control;
 
+import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.StrUtil;
 import com.atguigu.springboot.bean.Class;
 import com.atguigu.springboot.bean.Vo.ClassSearchVo;
 import com.atguigu.springboot.bean.Vo.HomeworkVo;
@@ -34,6 +36,10 @@ public class ClassController {
 
     @PostMapping("/add")
     public String add(@RequestBody Class classes, HttpSession session){
+        if (classes.getId() == null){
+            Long l = System.currentTimeMillis() / 1000;
+            classes.setId(Math.toIntExact(l));
+        }
         classes.setTeacherId((Integer) session.getAttribute("id"));
         Boolean classVos = classService.addById(classes);
         return "emp/class";
@@ -45,10 +51,10 @@ public class ClassController {
         return "emp/class";
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Integer id){
-        Boolean classVos = classService.deleteById(id);
-        return "redirect:http://localhost:8080/crud/class/emps";
+    @PostMapping("/delete")
+    public String delete(@RequestBody String id){
+        Boolean classVos = classService.deleteById(Integer.valueOf(id));
+        return "emp/class";
     }
 
     @GetMapping("/search")

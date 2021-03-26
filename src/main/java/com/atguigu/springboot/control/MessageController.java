@@ -25,13 +25,6 @@ public class MessageController {
         return "emp/message";
     }
 
-//    @PostMapping("/add")
-//    public String add(@RequestBody Class classes, HttpSession session){
-//        classes.setTeacherId((Integer) session.getAttribute("id"));
-//        Boolean classVos = classService.addById(classes);
-//        return "emp/class";
-//    }
-
     @PostMapping("/update")
     public String update(@RequestBody Message message){
         message.setState(1);
@@ -39,9 +32,9 @@ public class MessageController {
         return "emp/message";
     }
 
-//    @GetMapping("/delete/{id}")
-//    public String delete(@PathVariable("id") Integer id){
-//        Boolean classVos = classService.deleteById(id);
-//        return "redirect:http://localhost:8080/crud/class/emps";
-//    }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id){
+        Boolean classVos = messageService.deleteById(id);
+        return "emp/message";
+    }
 }

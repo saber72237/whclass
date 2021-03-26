@@ -6,10 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +23,6 @@ public class MyMvcConfig implements WebMvcConfigurer {
         WebMvcConfigurer adapter = new WebMvcConfigurer() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-//                super.addViewControllers(registry);
                 registry.addViewController("/").setViewName("login");
                 registry.addViewController("/login").setViewName("login");
                 registry.addViewController("/index.html").setViewName("login");
@@ -35,10 +31,10 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
             @Override
             public void addInterceptors(InterceptorRegistry registry) {
-                registry.addInterceptor(new LoginHanderInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/index.html","/","/user/login","/**/*.css",
-                                "/**/*.js", "/**/*.png", "/**/*.jpg","/**/*.svg",
-                                "/**/*.jpeg","/**/*.gif", "/**/fonts/*","/js/**","/css/**","/img/**");
+//                registry.addInterceptor(new LoginHanderInterceptor()).addPathPatterns("/**")
+//                        .excludePathPatterns("/index.html","/","/user/login","/**/*.css",
+//                                "/**/*.js", "/**/*.png", "/**/*.jpg","/**/*.svg","/imgs/**",
+//                                "/**/*.jpeg","/**/*.gif", "/**/fonts/*","/js/**","/css/**","/img/**");
             }
         };
         return adapter;

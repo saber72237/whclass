@@ -6,5 +6,8 @@ import java.util.Collection;
 
 public interface MessageMapper {
     public Collection<Message> findById(Integer id);
+
     public boolean updateById(Message message);
+
+    public boolean deleteById(Integer id);
 }

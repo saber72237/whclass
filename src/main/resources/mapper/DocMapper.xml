@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.springboot.mapper.DocMapper">
+
+    <select id="findById" resultType="com.atguigu.springboot.bean.Doclist">
+        SELECT
+        *
+        FROM
+        sys_doclist
+        <where>
+            teacher_id = #{id} and prefix_id = 0
+        </where>
+    </select>
+
+    <update id="editPassword1">
+        update sys_doclist
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="password != null  and password != ''">password = #{password},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <update id="editPassword2">
+        update sys_classdoc
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="password != null  and password != ''">password = #{password},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <select id="getList" resultType="com.atguigu.springboot.bean.Vo.ClassDocVo">
+        SELECT
+        d.id,
+        d.name
+        FROM
+        sys_doclist d
+        <where>
+            d.prefix_id = #{prefixId}
+        </where>
+    </select>
+
+    <select id="getDocList" resultType="com.atguigu.springboot.bean.Vo.ClassDocVo">
+        SELECT
+        d.id,
+        d.name,
+        d.path
+        FROM
+        sys_classdoc d
+        <where>
+            d.doclist_id = #{prefixId}
+        </where>
+    </select>
+
+    <insert id="addById">
+        INSERT into sys_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">id,</if>
+            <if test="teacherId != null  and teacherId != ''">teacher_id,</if>
+            <if test="name != null  and name != ''">name,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''">#{id},</if>
+            <if test="teacherId != null  and teacherId != ''">#{teacherId},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+    </insert>
+
+    <insert id="saveDoclist">
+        INSERT into sys_classdoc
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="path != null  and path != ''">path,</if>
+            <if test="name != null  and name != ''">name,</if>
+            <if test="password != null  and password != ''">password,</if>
+            <if test="prefixId != null  and prefixId != ''">doclist_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="path != null  and path != ''">#{path},</if>
+            <if test="name != null  and name != ''">#{name},</if>
+            <if test="password != null  and password != ''">#{password},</if>
+            <if test="prefixId != null  and prefixId != ''">#{prefixId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.atguigu.springboot.bean.Doclist">
+        update sys_class
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="teacherId != null  and teacherId != ''">teacher_id = #{teacherId},</if>
+            <if test="name != null  and name != ''">name = #{name},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from sys_class where id = #{id}
+    </delete>
+
+
+    <select id="findByName" resultType="com.atguigu.springboot.bean.Doclist">
+        SELECT
+        c.id, c.name className, t.name teacherName
+        FROM
+        sys_class c
+        LEFT JOIN sys_teacher t ON c.teacher_id = t.id
+        <where>
+            c.name = #{search}
+        </where>
+    </select>
+</mapper>

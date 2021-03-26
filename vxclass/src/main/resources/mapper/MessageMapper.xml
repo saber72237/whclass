@@ -2,4 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yygq.vxclass.mapper.MessageMapper">
 
+    <select id="findByClassId" resultType="com.yygq.vxclass.bean.Message">
+        SELECT
+        *
+        FROM
+        sys_message
+        <where>
+            class_id = #{classId}
+        </where>
+    </select>
+
+    <insert id="saveMessage">
+        INSERT into sys_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null  and title != ''">title,</if>
+            <if test="authorId != null  and authorId != ''">author_id,</if>
+            <if test="creatTime != null  and creatTime != ''">creat_time,</if>
+            <if test="request != null  and request != ''">request,</if>
+            <if test="classId != null  and classId != ''">class_id,</if>
+            <if test="teacherId != null  and teacherId != ''">teacher_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null  and title != ''">#{title},</if>
+            <if test="authorId != null  and authorId != ''">#{authorId},</if>
+            <if test="creatTime != null  and creatTime != ''">#{creatTime},</if>
+            <if test="request != null  and request != ''">#{request},</if>
+            <if test="classId != null  and classId != ''">#{classId},</if>
+            <if test="teacherId != null  and teacherId != ''">#{teacherId},</if>
+        </trim>
+    </insert>
 </mapper>

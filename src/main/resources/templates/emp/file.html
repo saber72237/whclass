@@ -72,6 +72,14 @@
             location.reload();
         })
         });
+        function js_replace(id,adress,title,name){
+            $("#id").attr("value",id);
+            $("#title").attr("value",title);
+            $("#name").attr("value",name);
+            $("#adress").attr("value",adress);
+            $('img').attr('src', adress);
+        }
+
     </script>
     <style type="text/css">
         /* Chart.js */
@@ -126,7 +134,7 @@
                                     <div class="form-group">
                                         <label for="title" class="col-sm-3 control-label">作业</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="title" name="title" value="">
+                                            <input type="text" class="form-control" id="title" name="title" value="" readonly="readonly">
                                         </div>
                                     </div>
 
@@ -134,16 +142,12 @@
                                         <label for="name" class="col-sm-3 control-label">学生</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" name="name" value="" id="name"
-                                                   placeholder="学生">
+                                                   placeholder="学生" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="adress" class="col-sm-3 control-label">内容</label>
-                                        <div class="col-sm-9">
-											<textarea  class="form-control"  name="adress" value="" id="adress"
-                                                       placeholder="内容">
-											</textarea>
-                                        </div>
+                                        <label for="name" class="col-sm-3 control-label">作业</label>
+                                        <img name="adress" src= "" width="200" height="200" alt="logo">
                                     </div>
                                     <div class="form-group">
                                         <label for="score" class="col-sm-3 control-label">分数</label>
@@ -185,7 +189,11 @@
                         <td th:name="state" th:text="${emp.state}"></td>
                         <td th:name="authorId" th:text="${emp.name}"></td>
                         <td>
-                            <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal">批改</a>
+                            <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal"
+                               th:data-id="${emp.id}" th:data-title="${emp.title}" th:data-name="${emp.name}"
+                               th:data-adress="${emp.adress}"
+                               th:onclick="js_replace(this.getAttribute('data-id'), this.getAttribute('data-adress'),
+                            this.getAttribute('data-title'),this.getAttribute('data-name'))">批改</a>
                         </td>
                     </tr>
                     </tbody>

@@ -119,6 +119,14 @@
         return false;
         }
 
+			function js_replace(id,name,introducion,title,time){
+				$("#classId").attr("value",id);
+				$("#name").attr("value",name);
+				$("#introducion").attr("value",introducion);
+				$("#title").attr("value",title);
+				$("#time").attr("value",time);
+			}
+
         $(function () { $('#addUserModal').on('hide.bs.modal', function () {
         // 关闭时清空edit状态为add
         $("#act").val("add");
@@ -178,9 +186,8 @@
 								<div class="modal-body">
 									<form class="form-horizontal" role="form">
 										<div class="form-group">
-											<label for="classId" class="col-sm-3 control-label">选择课程</label>
 											<div class="col-sm-9">
-												<input type="text" class="form-control" id="classId" name="classId" value=""
+												<input type="hidden" class="form-control" id="classId" name="classId" value=""
 													   placeholder="请输入课程">
 											</div>
 										</div>
@@ -242,7 +249,12 @@
 									<td th:name="introducion" th:text="${emp.introducion}"></td>
 									<td th:name="time" th:text="${emp.time}"></td>
 									<td>
-										<a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal">编辑</a>
+										<a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal"
+										   th:data-id = "${emp.id} " th:data-title = "${emp.title} " th:data-time = "${emp.time} "
+										   th:data-name = "${emp.name}" th:data-introducion = "${emp.introducion}"
+										   th:onclick="js_replace(this.getAttribute('data-id'),this.getAttribute('data-name'),
+                               			   this.getAttribute('data-introducion'),this.getAttribute('data-title'),
+                               			   this.getAttribute('data-time'))" >编辑</a>
 										<a th:href="@{'/delete/'+${emp.id}}" class="btn btn-sm btn-danger deleteBtn">删除</a>
 									</td>
 								</tr>

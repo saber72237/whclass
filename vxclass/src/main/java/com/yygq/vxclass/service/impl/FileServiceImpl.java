@@ -1,5 +1,6 @@
 package com.yygq.vxclass.service.impl;
 
+import com.yygq.vxclass.bean.File;
 import com.yygq.vxclass.mapper.FileMapper;
 import com.yygq.vxclass.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,4 +19,8 @@ public class FileServiceImpl implements FileService {
     @Autowired
     FileMapper fileMapper;
 
+    @Override
+    public Boolean saveHomework(File homework) {
+        return fileMapper.saveHomework(homework);
+    }
 }

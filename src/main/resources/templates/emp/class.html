@@ -20,13 +20,16 @@
         // 删除表单
         function deleteTr(id)
         {
+            var obj = {};
+            obj.id = id;
+            var req_json = JSON.stringify(obj)
             // 异步提交数据到action/add_action.php页面
             $.ajax(
                 {
                     url: "delete",
                     contentType:"application/json",
                     dataType: "json",
-                    data:id,
+                    data: id,
                     type: "post",
                     success:function(data)
                     {
@@ -39,11 +42,6 @@
                             // document.location.href='system_notice.php'
                             alert(msg + "OK！");
                             location.reload();
-                        }
-                        else
-                        {
-                            $("#tip").html("<span style='color:red'>失败，请重试</span>");
-                            alert('操作失败');
                         }
                     },
                     error:function()
@@ -104,9 +102,10 @@
             return false;
         }
 
-        function js_replace(id,name){
+        function js_replace(id,name,introduce){
             $("#id").attr("value",id);
-            $("#classname").attr("value",name);
+            $("#name").attr("value",name);
+            $("#introduce").attr("value",introduce);
         }
 
         $(function () { $('#addUserModal').on('hide.bs.modal', function () {
@@ -168,17 +167,23 @@
                             <div class="modal-body">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
-                                        <label for="id" class="col-sm-3 control-label">输入id</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="id" name="id" value=""
+                                            <input type="hidden" class="form-control" id="id" name="id" value=""
                                                    placeholder="请输入id">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="classname" class="col-sm-3 control-label">输入课程</label>
+                                        <label for="name" class="col-sm-3 control-label">输入课程</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="classname" name="classname" value=""
+                                            <input type="text" class="form-control" id="name" name="name" value=""
                                                    placeholder="请输入课程">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="name" class="col-sm-3 control-label">输入课程简介</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="introduce" name="introduce" value=""
+                                                   placeholder="输入课程简介">
                                         </div>
                                     </div>
                                 </form>
@@ -201,6 +206,7 @@
                     <tr>
                         <th>#</th>
                         <th>课程</th>
+                        <th>简介</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -208,10 +214,13 @@
                     <tr th:each="emp:${emps}">
                         <td th:name="id" th:text="${emp.id}"></td>
                         <td th:name="name">[[${emp.name}]]</td>
+                        <td th:name="introduce">[[${emp.introduce}]]</td>
                         <td>
                             <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal" th:data-id = "${emp.id} "
-                               th:data-name = "${emp.name}" th:onclick="js_replace(this.getAttribute('data-id'),this.getAttribute('data-name'))" >编辑</a>
-                            <a th:href="@{'/class/delete/'+${emp.id}}" class="btn btn-sm btn-danger deleteBtn">删除</a>
+                               th:data-name = "${emp.name}", th:data-introduce = "${emp.introduce}"
+                               th:onclick="js_replace(this.getAttribute('data-id'),this.getAttribute('data-name'),
+                               this.getAttribute('data-introduce'))" >编辑</a>
+                            <a th:data-id = "${emp.id} " th:onclick="deleteTr(this.getAttribute('data-id'))" class="btn btn-sm btn-danger deleteBtn">删除</a>
                         </td>
                     </tr>
                     </tbody>

@@ -2,14 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yygq.vxclass.mapper.ClassMapper">
 
+    <select id="findById" resultType="com.yygq.vxclass.bean.Vo.ClassDetailVO">
+        SELECT
+        c.id classId, c.name className, c.introduce, t.name teacherName,
+         t.age age, t.gender gender, t.tel tel, c.picture
+        FROM
+        sys_class c
+        LEFT JOIN sys_teacher t ON c.teacher_id = t.id
+        <where>
+            c.id = #{id}
+        </where>
+    </select>
+
+    <select id="findStatus" resultType="Integer">
+        SELECT COUNT(*)
+        FROM
+        sys_class_student
+        <where>
+            class_id = #{classId} and student_id = #{studentId}
+        </where>
+    </select>
+
     <select id="findByName" resultType="com.yygq.vxclass.bean.Vo.ClassSearchVo">
         SELECT
         c.id, c.name className, t.name teacherName
         FROM
         sys_class c
         LEFT JOIN sys_teacher t ON c.teacher_id = t.id
+        <if test="search != null">
+            <where>
+                c.name = #{search}
+            </where>
+        </if>
+    </select>
+
+    <select id="findToId" resultType="com.yygq.vxclass.bean.Vo.ClassSearchVo">
+        SELECT
+        c.id id, c.name className, s.name teacherName
+        FROM
+        sys_class_student t
+        LEFT JOIN sys_class c ON t.class_id = c.id
+        LEFT JOIN sys_teacher s ON s.id = c.teacher_id
         <where>
-            c.name = #{search}
+            t.student_id = #{id}
+        </where>
+    </select>
+
+
+    <select id="findByClassId" resultType="java.lang.Integer">
+        SELECT
+        teacher_id
+        FROM
+        sys_class
+        <where>
+            id = #{classId}
         </where>
     </select>
 </mapper>

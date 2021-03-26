@@ -28,4 +28,9 @@ public class MessageServiceImpl implements MessageService {
     public boolean updateById(Message message) {
         return messageMapper.updateById(message);
     }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        return messageMapper.deleteById(id);
+    }
 }
