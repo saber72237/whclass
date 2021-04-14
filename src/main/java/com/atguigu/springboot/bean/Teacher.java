@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class Teacher {
     private Integer id;
-    private String introduce;
+    private String introduction;
     private String username;
     private String name;
     private String age;

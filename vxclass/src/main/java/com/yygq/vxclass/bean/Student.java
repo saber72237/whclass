@@ -23,5 +23,5 @@ public class Student {
 
     private String vxId;
 
-    private Integer stuNo;
+    private String stuNo;
 }

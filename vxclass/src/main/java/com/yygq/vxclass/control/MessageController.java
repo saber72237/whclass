@@ -34,8 +34,7 @@ public class MessageController {
     @ResponseBody
     @PostMapping("/add")
     public Boolean add(@RequestBody Message message, HttpSession httpSession){
-        //Integer id = (Integer) httpSession.getAttribute("id");
-        Integer id = 1;
+        Integer id = (Integer) httpSession.getAttribute("id");
         Integer teacherId = classService.findByClassId(message.getClassId());
         message.setAuthorId(id);
         message.setTeacherId(teacherId);

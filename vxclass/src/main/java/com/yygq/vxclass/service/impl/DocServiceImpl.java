@@ -57,7 +57,7 @@ public class DocServiceImpl implements IDocService {
 
     @Override
     public List<Doclist> findByName(String search) {
-        return null;
+        return docMapper.findByName(search);
     }
 
     @Override

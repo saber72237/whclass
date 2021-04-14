@@ -10,10 +10,8 @@ import lombok.Data;
 @Data
 public class FileVo {
     private Integer id;
-    private String adress;
     private Integer score;
     private Integer state;
-    private Integer teacherId;
-    private String name;
+    private String teacherName;
     private String title;
 }

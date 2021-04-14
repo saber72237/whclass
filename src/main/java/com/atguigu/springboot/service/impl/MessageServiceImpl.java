@@ -1,6 +1,7 @@
 package com.atguigu.springboot.service.impl;
 
 import com.atguigu.springboot.bean.Message;
+import com.atguigu.springboot.bean.Vo.MessageVo;
 import com.atguigu.springboot.mapper.MessageMapper;
 import com.atguigu.springboot.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class MessageServiceImpl implements MessageService {
     MessageMapper messageMapper;
 
     @Override
-    public Collection<Message> findById(Integer id) {
+    public Collection<MessageVo> findById(Integer id) {
         return messageMapper.findById(id);
     }
 

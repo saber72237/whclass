@@ -21,7 +21,12 @@ public class StudentServiceImpl implements IStudentService {
     StudentMapper studentMapper;
 
     @Override
-    public Student findByVXId(String stuNo){
-        return studentMapper.findByVXId(stuNo);
+    public Student findByVXId(String vxId){
+        return studentMapper.findByVXId(vxId);
+    }
+
+    @Override
+    public Boolean setStuNo(String stuNo, String vxId) {
+        return studentMapper.setStuNo(stuNo, vxId);
     }
 }

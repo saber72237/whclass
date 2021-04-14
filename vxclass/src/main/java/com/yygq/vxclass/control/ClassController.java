@@ -1,8 +1,11 @@
 package com.yygq.vxclass.control;
 
+import com.yygq.vxclass.bean.Student;
 import com.yygq.vxclass.bean.Vo.ClassDetailVO;
 import com.yygq.vxclass.bean.Vo.ClassSearchVo;
 import com.yygq.vxclass.service.ClassService;
+import com.yygq.vxclass.service.IStudentService;
+import com.yygq.vxclass.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +27,9 @@ public class ClassController {
     @Autowired
     ClassService classService;
 
+    @Autowired
+    IStudentService iStudentService;
+
     @GetMapping("/search")
     @ResponseBody
     public List<ClassSearchVo> classSearch(String search){
@@ -34,9 +40,8 @@ public class ClassController {
 
     @GetMapping("/detail")
     @ResponseBody
-    public ClassDetailVO classDetail(Integer id, HttpSession httpSession){
-        //Integer userId = Integer.valueOf(httpSession.getAttribute("id").toString());
-        Integer userId = 1;
+    public ClassDetailVO classDetail(Integer id, String vxId, HttpSession httpSession){
+        Integer userId = iStudentService.findByVXId(vxId).getId();
         if (userId.equals("") || userId == null){
             userId = 0;
         }
@@ -56,11 +61,10 @@ public class ClassController {
 
     @GetMapping("/stuClass")
     @ResponseBody
-    public List<ClassSearchVo> stuClass(HttpSession httpSession){
-        Integer id = (Integer) httpSession.getAttribute("id");
-        id = 1;
+    public List<ClassSearchVo> stuClass(HttpSession httpSession, String id){
+        Student student = iStudentService.findByVXId(id);
         List<ClassSearchVo> classSearchVoList = new ArrayList<ClassSearchVo>();
-        classSearchVoList = classService.findToId(id);
+        classSearchVoList = classService.findToId(student.getId());
         return classSearchVoList;
     }
 }

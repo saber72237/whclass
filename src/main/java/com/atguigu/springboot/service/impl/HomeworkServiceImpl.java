@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 /**
  * @author ：xxx
@@ -32,6 +32,13 @@ public class HomeworkServiceImpl implements HomeworkService {
 
     @Override
     public boolean addById(HomeworkVo homeworkVo) {
+        if (homeworkVo.getMonth().length() == 1){
+            homeworkVo.setMonth("0" + homeworkVo.getMonth());
+        }
+        if (homeworkVo.getDay().length() == 1){
+            homeworkVo.setDay("0" + homeworkVo.getDay());
+        }
+        homeworkVo.setTime(homeworkVo.getYear() + "-" + homeworkVo.getMonth() + "-" + homeworkVo.getDay() + " " + "10:00:00");
         return homeworkMapper.addById(homeworkVo);
     }
 

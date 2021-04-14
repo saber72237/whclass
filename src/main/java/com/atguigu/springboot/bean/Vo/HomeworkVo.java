@@ -16,5 +16,8 @@ public class HomeworkVo {
     private String name;
     private String title;
     private String introducion;
-    private LocalDateTime time;
+    private String time;
+    private String year;
+    private String month;
+    private String day;
 }

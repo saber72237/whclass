@@ -2,19 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.atguigu.springboot.mapper.MessageMapper">
 
-    <select id="findById" resultType="com.atguigu.springboot.bean.Message">
+    <select id="findById" resultType="com.atguigu.springboot.bean.Vo.MessageVo">
         SELECT
-        id,
-        title,
-        author_id,
-        creat_time,
-        teacher_id,
-        end_time,
-        request,
-        response,
-        state
+        s.name as stuName,
+        s.stu_no as stuNo,
+        m.id,
+        m.title,
+        m.author_id,
+        m.creat_time,
+        m.teacher_id,
+        m.end_time,
+        m.request,
+        m.response,
+        m.state
         FROM
-        sys_message
+        sys_message m
+        LEFT JOIN
+        sys_student s
+        on
+        s.id = m.author_id
         <where>
             teacher_id = #{id}
         </where>

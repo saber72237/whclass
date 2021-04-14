@@ -25,6 +25,8 @@ public class TeacherController {
     @GetMapping("/user")
     public String list(Model model, HttpSession session){
         Teacher teachers = iTeacherService.findById((Integer) session.getAttribute("id"));
+        String gender = teachers.getGender().equals("0") ? "男" : "女";
+        teachers.setGender(gender);
         model.addAttribute("emps",teachers);
         return "emp/userinfo";
     }

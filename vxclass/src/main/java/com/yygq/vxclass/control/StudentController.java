@@ -30,4 +30,11 @@ public class StudentController {
         return student;
     }
 
+    @GetMapping("/stuNo")
+    @ResponseBody
+    public Boolean stuNo(String stuNo, String vxId){
+        Boolean result = iStudentService.setStuNo(stuNo, vxId);
+        return result;
+    }
+
 }

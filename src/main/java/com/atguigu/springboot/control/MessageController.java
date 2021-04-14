@@ -2,6 +2,7 @@ package com.atguigu.springboot.control;
 
 import com.atguigu.springboot.bean.Class;
 import com.atguigu.springboot.bean.Message;
+import com.atguigu.springboot.bean.Vo.MessageVo;
 import com.atguigu.springboot.service.ClassService;
 import com.atguigu.springboot.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class MessageController {
 
     @GetMapping("/emps")
     public String list(Model model, HttpSession session){
-        Collection<Message> messages = messageService.findById((Integer) session.getAttribute("id"));
+        Collection<MessageVo> messages = messageService.findById((Integer) session.getAttribute("id"));
         model.addAttribute("emps",messages);
         return "emp/message";
     }

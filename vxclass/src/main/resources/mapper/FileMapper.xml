@@ -17,4 +17,20 @@
             <if test="teacherId != null  and teacherId != ''">#{teacherId},</if>
         </trim>
     </insert>
+
+    <select id="history" resultType="com.yygq.vxclass.bean.Vo.FileVo">
+        SELECT
+        c.id,
+        c.score,
+        c.state,
+        h.title,
+        t.name teacherName
+        FROM
+        sys_file c
+        LEFT JOIN sys_teacher t ON c.teacher_id = t.id
+        LEFT JOIN sys_homework h ON h.id = c.homework_id
+        <where>
+            c.student_id = #{id}
+        </where>
+    </select>
 </mapper>

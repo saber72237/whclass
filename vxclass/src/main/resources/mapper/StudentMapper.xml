@@ -11,4 +11,12 @@
             vx_id = #{vxId}
         </where>
     </select>
+
+    <update id="setStuNo" parameterType="boolean">
+        update sys_student
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stuNo != null  and stuNo != ''">stu_no = #{stuNo},</if>
+        </trim>
+        where vx_id = #{vxId}
+    </update>
 </mapper>

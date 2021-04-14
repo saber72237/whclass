@@ -6,6 +6,7 @@ import com.yygq.vxclass.bean.File;
 import com.yygq.vxclass.bean.Homework;
 import com.yygq.vxclass.service.FileService;
 import com.yygq.vxclass.service.HomeworkService;
+import com.yygq.vxclass.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,10 +37,12 @@ public class HomeworkController {
     @Autowired
     FileService fileService;
 
+    @Autowired
+    IStudentService iStudentService;
+
     @GetMapping("/stuClass")
     @ResponseBody
     public List<Homework> stuClass(Integer classId){
-        classId = 1;
         List<Homework> homeworkList = new ArrayList<Homework>();
         homeworkList = homeworkService.findByClassId(classId);
         return homeworkList;
@@ -60,16 +63,15 @@ public class HomeworkController {
     }
 
     @GetMapping("/save")
-    public Boolean save(HttpSession httpSession, @RequestParam(value = "path", required = false) String path,
+    public Boolean save(String vxId, @RequestParam(value = "path", required = false) String path,
                           @RequestParam(value = "homeworkId", required = false) String homeworkId){
-        //String stuId = String.valueOf(httpSession.getAttribute("id"));
-        String stuId = "1";
+        Integer userId = iStudentService.findByVXId(vxId).getId();
         File homework = new File();
         homework.setAdress(path);
         homework.setHomeworkId(Integer.valueOf(homeworkId));
-        homework.setStudentId(Integer.valueOf(stuId));
+        homework.setStudentId(Integer.valueOf(userId));
         fileService.saveHomework(homework);
-        return true;
+        return null;
     }
 
     @GetMapping("/detail")
