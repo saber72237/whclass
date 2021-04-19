@@ -79,7 +79,7 @@ public class DocController {
         String name = null;
         try {
             byte[] bytes = file.getBytes();
-            path = Paths.get("/Users/admin/Desktop/whclass/" + file.getOriginalFilename());
+            path = Paths.get("/usr/src/whclass" + file.getOriginalFilename());
             name = file.getOriginalFilename();
             Files.write(path, bytes);
         } catch (IOException e) {
