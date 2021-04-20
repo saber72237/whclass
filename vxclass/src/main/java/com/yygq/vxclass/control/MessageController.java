@@ -3,6 +3,7 @@ package com.yygq.vxclass.control;
 import com.yygq.vxclass.bean.Doclist;
 import com.yygq.vxclass.bean.Message;
 import com.yygq.vxclass.service.ClassService;
+import com.yygq.vxclass.service.IStudentService;
 import com.yygq.vxclass.service.ITeacherService;
 import com.yygq.vxclass.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class MessageController {
     @Autowired
     ClassService classService;
 
+    @Autowired
+    IStudentService iStudentService;
+
     @ResponseBody
     @GetMapping("/list")
     public List<Message> list(String classId){
@@ -34,9 +38,9 @@ public class MessageController {
     @ResponseBody
     @PostMapping("/add")
     public Boolean add(@RequestBody Message message, HttpSession httpSession){
-        Integer id = (Integer) httpSession.getAttribute("id");
+        Integer userId = iStudentService.findByVXId(message.getVxId()).getId();
         Integer teacherId = classService.findByClassId(message.getClassId());
-        message.setAuthorId(id);
+        message.setAuthorId(userId);
         message.setTeacherId(teacherId);
         Boolean flag = messageService.saveMessage(message);
         return flag;

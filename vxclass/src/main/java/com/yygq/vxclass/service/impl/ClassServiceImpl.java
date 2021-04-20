@@ -7,7 +7,6 @@ import com.yygq.vxclass.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -44,5 +43,15 @@ public class ClassServiceImpl implements ClassService {
     @Override
     public Integer findByClassId(Integer classId) {
         return classMapper.findByClassId(classId);
+    }
+
+    @Override
+    public Boolean updateState(Boolean flag, Integer stuId, Integer classId) {
+        Integer byIds = classMapper.findByIds(stuId, classId);
+        Boolean insert = false;
+        if (null == byIds) {
+            insert = classMapper.insert(stuId, classId);
+        }
+        return insert;
     }
 }

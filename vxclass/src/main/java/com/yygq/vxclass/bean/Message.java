@@ -21,4 +21,5 @@ public class Message {
     private String response;
     private Integer state;
     private Integer classId;
+    private String vxId;
 }

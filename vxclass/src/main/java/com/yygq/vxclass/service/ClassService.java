@@ -17,4 +17,6 @@ public interface ClassService {
     public Integer findStatus(ClassDetailVO classDetailVO);
 
     public Integer findByClassId(Integer classId);
+
+    public Boolean updateState(Boolean flag, Integer stuId, Integer classId);
 }

@@ -58,4 +58,26 @@
             id = #{classId}
         </where>
     </select>
+
+    <select id="findByIds" resultType="java.lang.Integer">
+        SELECT
+        1
+        FROM
+        sys_class_student
+        <where>
+            class_id = #{classId} and student_id = #{stuId}
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT into sys_class_student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stuId != null  and stuId != ''">student_id,</if>
+            <if test="classId != null  and classId != ''">class_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stuId != null  and stuId != ''">#{stuId},</if>
+            <if test="classId != null  and classId != ''">#{classId},</if>
+        </trim>
+    </insert>
 </mapper>

@@ -16,4 +16,8 @@ public interface ClassMapper {
     public List<ClassSearchVo> findToId(Integer id);
 
     public Integer findByClassId(Integer classId);
+
+    public Integer findByIds(Integer stuId, Integer classId);
+
+    public Boolean insert(Integer stuId, Integer classId);
 }

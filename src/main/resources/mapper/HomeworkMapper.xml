@@ -15,6 +15,7 @@
         <where>
             c.teacher_id = #{id}
         </where>
+        order by h.time desc
     </select>
 
     <insert id="addById">

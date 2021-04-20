@@ -1,5 +1,6 @@
 package com.yygq.vxclass.control;
 
+import com.yygq.vxclass.bean.ClassDTO;
 import com.yygq.vxclass.bean.Student;
 import com.yygq.vxclass.bean.Vo.ClassDetailVO;
 import com.yygq.vxclass.bean.Vo.ClassSearchVo;
@@ -66,5 +67,14 @@ public class ClassController {
         List<ClassSearchVo> classSearchVoList = new ArrayList<ClassSearchVo>();
         classSearchVoList = classService.findToId(student.getId());
         return classSearchVoList;
+    }
+
+    @PostMapping("/update")
+    @ResponseBody
+    public String update(@RequestBody ClassDTO classDTO){
+        Student student = iStudentService.findByVXId(classDTO.getVxId());
+        Boolean checkList = true;
+        Boolean classVos = classService.updateState(checkList, student.getId(), classDTO.getClassId());
+        return "success";
     }
 }
