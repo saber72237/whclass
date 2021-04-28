@@ -2,6 +2,7 @@ package com.yygq.vxclass.control;
 
 import com.yygq.vxclass.bean.Doclist;
 import com.yygq.vxclass.bean.Message;
+import com.yygq.vxclass.bean.Vo.MessageVO;
 import com.yygq.vxclass.service.ClassService;
 import com.yygq.vxclass.service.IStudentService;
 import com.yygq.vxclass.service.ITeacherService;
@@ -32,6 +33,14 @@ public class MessageController {
     @GetMapping("/list")
     public List<Message> list(String classId){
         List<Message> messsages = messageService.findByClassId(Integer.valueOf(classId));
+        return messsages;
+    }
+
+    @ResponseBody
+    @GetMapping("/mine")
+    public List<MessageVO> mine(String vxId){
+        Integer userId = iStudentService.findByVXId(vxId).getId();
+        List<MessageVO> messsages = messageService.findByUserId(Integer.valueOf(userId));
         return messsages;
     }
 

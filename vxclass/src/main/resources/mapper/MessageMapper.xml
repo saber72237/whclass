@@ -12,6 +12,25 @@
         </where>
     </select>
 
+    <select id="findByUserId" resultType="com.yygq.vxclass.bean.Vo.MessageVO">
+        SELECT
+        title,
+        id,
+        request,
+        CASE
+        state
+        WHEN '0' THEN
+        '未回复'
+        WHEN '1' THEN
+        '已回复'
+        END AS status
+        FROM
+        sys_message
+        <where>
+            author_id = #{userId}
+        </where>
+    </select>
+
     <insert id="saveMessage">
         INSERT into sys_message
         <trim prefix="(" suffix=")" suffixOverrides=",">

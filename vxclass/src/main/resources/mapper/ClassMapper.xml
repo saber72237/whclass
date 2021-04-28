@@ -29,7 +29,7 @@
         FROM
         sys_class c
         LEFT JOIN sys_teacher t ON c.teacher_id = t.id
-        <if test="search != null">
+        <if test="search != null and search != '' ">
             <where>
                 c.name = #{search}
             </where>

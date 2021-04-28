@@ -1,6 +1,7 @@
 package com.yygq.vxclass.service.impl;
 
 import com.yygq.vxclass.bean.Message;
+import com.yygq.vxclass.bean.Vo.MessageVO;
 import com.yygq.vxclass.mapper.MessageMapper;
 import com.yygq.vxclass.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> findByClassId(Integer classId) {
         return messageMapper.findByClassId(classId);
+    }
+
+    @Override
+    public List<MessageVO> findByUserId(Integer userId) {
+        return messageMapper.findByUserId(userId);
     }
 
     @Override

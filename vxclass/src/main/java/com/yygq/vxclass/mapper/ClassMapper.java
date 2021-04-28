@@ -2,6 +2,7 @@ package com.yygq.vxclass.mapper;
 
 import com.yygq.vxclass.bean.Vo.ClassDetailVO;
 import com.yygq.vxclass.bean.Vo.ClassSearchVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface ClassMapper {
 
     public ClassDetailVO findById(Integer id);
 
-    public List<ClassSearchVo> findByName(String search);
+    public List<ClassSearchVo> findByName(@Param("search") String search);
 
     public Integer findStatus(ClassDetailVO classDetailVO);
 
