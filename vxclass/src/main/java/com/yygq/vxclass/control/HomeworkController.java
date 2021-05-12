@@ -67,6 +67,8 @@ public class HomeworkController {
                           @RequestParam(value = "homeworkId", required = false) String homeworkId){
         Integer userId = iStudentService.findByVXId(vxId).getId();
         File homework = new File();
+        Integer teacherId = fileService.getTeacherId(homeworkId);
+        homework.setTeacherId(teacherId);
         homework.setAdress(path);
         homework.setHomeworkId(Integer.valueOf(homeworkId));
         homework.setStudentId(Integer.valueOf(userId));

@@ -30,7 +30,7 @@
             // 异步提交数据到action/add_action.php页面
             $.ajax(
                 {
-                    url: "add",
+                    url: "update",
                     contentType:"application/json",
                     dataType: "json",
                     data:req_json,
@@ -73,7 +73,7 @@
         })
         });
         function js_replace(id,adress,title,name){
-            $("#id").attr("value",id);
+            $("#fileId").attr("value",id);
             $("#title").attr("value",title);
             $("#name").attr("value",name);
             $("#adress").attr("value",adress);
@@ -139,6 +139,13 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <div class="col-sm-9">
+                                            <input type="hidden" class="form-control" name="id" value="" id="fileId"
+                                                   readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="name" class="col-sm-3 control-label">学生</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" name="name" value="" id="name"
@@ -186,7 +193,7 @@
                     <tr th:each="emp:${emps}">
                         <td th:name="id" th:text="${emp.id}"></td>
                         <td th:name="title">[[${emp.title}]]</td>
-                        <td th:name="state" th:text="${emp.state}"></td>
+                        <td th:name="state" th:text="${emp.state} == 1 ? '已批改': '未批改'"></td>
                         <td th:name="authorId" th:text="${emp.name}"></td>
                         <td>
                             <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#addUserModal"

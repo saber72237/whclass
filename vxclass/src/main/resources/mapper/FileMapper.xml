@@ -33,4 +33,15 @@
             c.student_id = #{id}
         </where>
     </select>
+
+    <select id="getTeacherId" resultType="java.lang.Integer">
+        SELECT
+        c.teacher_id
+        FROM
+        sys_homework h
+        LEFT JOIN sys_class c ON c.id = h.class_id
+        <where>
+            h.id = #{homeworkId}
+        </where>
+    </select>
 </mapper>

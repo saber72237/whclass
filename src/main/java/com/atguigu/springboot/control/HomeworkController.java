@@ -29,7 +29,7 @@ public class HomeworkController {
         return "emp/list";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/hm/add")
     public String add(@RequestBody HomeworkVo homeworkVo){
         Boolean homeworkVos = homeworkService.addById(homeworkVo);
         return "emp/list";

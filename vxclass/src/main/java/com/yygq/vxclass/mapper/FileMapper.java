@@ -9,4 +9,6 @@ public interface FileMapper {
     public Boolean saveHomework(File homework);
 
     public List<FileVo> history(Integer id);
+
+    public Integer getTeacherId(String homeworkId);
 }

@@ -19,10 +19,10 @@
     </select>
 
     <update id="updateById" parameterType="com.atguigu.springboot.bean.File">
-        update sys_class
+        update sys_file
         <trim prefix="SET" suffixOverrides=",">
             <if test="score != null  and score != ''">score = #{score},</if>
-            <if test="state != null  and state != ''">state = #{state},</if>
+            <if test="state == null  or state == ''">state = 1,</if>
         </trim>
         where id = #{id}
     </update>

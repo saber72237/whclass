@@ -11,4 +11,6 @@ public interface FileService {
 
     public List<FileVo> history(Integer id);
 
+    public Integer getTeacherId(String homeworkId);
+
 }

@@ -30,4 +30,9 @@ public class FileServiceImpl implements FileService {
     public List<FileVo> history(Integer id) {
         return fileMapper.history(id);
     }
+
+    @Override
+    public Integer getTeacherId(String homeworkId) {
+        return fileMapper.getTeacherId(homeworkId);
+    }
 }
