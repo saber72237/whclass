@@ -69,7 +69,7 @@ public class HomeworkController {
         File homework = new File();
         Integer teacherId = fileService.getTeacherId(homeworkId);
         homework.setTeacherId(teacherId);
-        homework.setAdress(path);
+        homework.setAdress("http://localhost:8080/crud/file/getImage?path=" + path);
         homework.setHomeworkId(Integer.valueOf(homeworkId));
         homework.setStudentId(Integer.valueOf(userId));
         fileService.saveHomework(homework);

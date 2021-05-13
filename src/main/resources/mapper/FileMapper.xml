@@ -18,7 +18,7 @@
         </where>
     </select>
 
-    <update id="updateById" parameterType="com.atguigu.springboot.bean.File">
+    <update id="updateById" parameterType="com.atguigu.springboot.bean.File1">
         update sys_file
         <trim prefix="SET" suffixOverrides=",">
             <if test="score != null  and score != ''">score = #{score},</if>

@@ -8,7 +8,7 @@ import lombok.Data;
  * @date ：2021/1/8 19:57
  */
 @Data
-public class File {
+public class File1 {
     private Integer id;
     private Integer studentId;
     private Integer homeworkId;

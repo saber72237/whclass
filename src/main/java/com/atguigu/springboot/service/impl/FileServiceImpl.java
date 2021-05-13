@@ -1,6 +1,6 @@
 package com.atguigu.springboot.service.impl;
 
-import com.atguigu.springboot.bean.File;
+import com.atguigu.springboot.bean.File1;
 import com.atguigu.springboot.bean.Vo.FileVo;
 import com.atguigu.springboot.mapper.FileMapper;
 import com.atguigu.springboot.service.FileService;
@@ -26,7 +26,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public boolean updateById(File file) {
+    public boolean updateById(File1 file) {
         return fileMapper.updateById(file);
     }
 }
