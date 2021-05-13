@@ -11,7 +11,8 @@ public interface DocMapper {
     public Collection<Doclist> findById(Integer id);
     public Boolean editPassword1(Integer id, String password);
     public Boolean editPassword2(Integer id, String password);
-    public boolean deleteById(Integer id);
+    public boolean deleteById1(Integer id);
+    public boolean deleteById2(Integer id);
     public boolean addById(Doclist doclist);
     public boolean updateById(Doclist doclist);
     public List<Doclist> findByName(String search);

@@ -40,9 +40,15 @@ public class DocServiceImpl implements IDocService {
         return docMapper.editPassword2(id, password);
     }
 
+
     @Override
-    public boolean deleteById(Integer id) {
-        return false;
+    public boolean deleteById1(Integer id) {
+        return docMapper.deleteById1(id);
+    }
+
+    @Override
+    public boolean deleteById2(Integer id) {
+        return docMapper.deleteById2(id);
     }
 
     @Override

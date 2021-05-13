@@ -14,7 +14,9 @@ public interface IDocService {
 
     public Boolean editPassword2(Integer id, String password);
 
-    public boolean deleteById(Integer id);
+    public boolean deleteById1(Integer id);
+
+    public boolean deleteById2(Integer id);
 
     public boolean addById(Doclist doclist);
 

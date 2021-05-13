@@ -310,7 +310,7 @@
                         <td th:name="name">[[${emp.name}]]</td>
                         <td th:switch = "${emp.path}">
                             <a th:case=null th:href="@{'/doc/list/'+${emp.id}}" class="btn btn-sm btn-primary"  >进入</a>
-                            <a th:href="@{'/doc/delete/'+${emp.id}}" class="btn btn-sm btn-danger deleteBtn">删除</a>
+                            <a th:href="@{'/doc/delete/'+${emp.id} + '/' +${null == emp.path}}" class="btn btn-sm btn-danger deleteBtn">删除</a>
                             <a class="btn btn-sm btn-primary" data-toggle="modal"  data-target="#editpassword"
                                th:data-id="${emp.id}" th:data-path="${emp.path}"
                                th:onclick="js_replace(this.getAttribute('data-id'), this.getAttribute('data-path'))">设置密码</a>

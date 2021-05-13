@@ -94,8 +94,12 @@
         where id = #{id}
     </update>
 
-    <delete id="deleteById">
-        delete from sys_class where id = #{id}
+    <delete id="deleteById1">
+        delete from sys_classdoc where id = #{id}
+    </delete>
+
+    <delete id="deleteById2">
+        delete from sys_doclist where id = #{id}
     </delete>
 
 

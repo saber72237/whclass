@@ -103,10 +103,15 @@ public class DocController {
         return "emp/doc";
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Integer id){
-        Boolean classVos = iDocService.deleteById(id);
-        return "redirect:http://localhost:8080/crud/class/emps";
+    @GetMapping("/delete/{id}/{path}")
+    public String delete(@PathVariable("id") Integer id, @PathVariable("path") String path){
+        if ("false".equals(path)) {
+            Boolean classVos = iDocService.deleteById1(id);
+        }
+        else {
+            Boolean classVos = iDocService.deleteById2(id);
+        }
+        return "emp/doc";
     }
 
     @GetMapping("/search")
