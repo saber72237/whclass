@@ -46,7 +46,31 @@ public class DocController {
 
     @ResponseBody
     @GetMapping("/list")
-    public List<ClassDocVo> docList(String prefixId){
+    public List<ClassDocVo> docList(String prefixId, Integer flag, HttpServletResponse response){
+        if (flag == 1) {
+
+            Doc doc = iDocService.findDoc(Integer.valueOf(prefixId));
+            String fileName = doc.getName();
+            File file = new File(doc.getPath());
+
+            try {
+                InputStream fis = new BufferedInputStream(new FileInputStream(doc.getPath()));
+                byte[] buffer = new byte[fis.available()];
+                fis.read(buffer);
+                fis.close();
+                response.reset();
+                response.addHeader("Content-Disposition", "attachment;filename=" + fileName);
+                response.addHeader("Content-Length", "" + file.length());
+                OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+                response.setContentType("application/force-download");
+                toClient.write(buffer);
+                toClient.flush();
+                toClient.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            return null;
+        }
         Integer check = iDocService.findById1(Integer.valueOf(prefixId));
         List<ClassDocVo> doclists = iDocService.getList(prefixId);
         List<ClassDocVo> docs = iDocService.getDocList(prefixId);
