@@ -47,7 +47,7 @@ public class DocServiceImpl implements IDocService {
 
     @Override
     public boolean addById(Doclist doclist) {
-        return false;
+        return docMapper.addById(doclist);
     }
 
     @Override

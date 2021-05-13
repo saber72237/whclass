@@ -71,10 +71,16 @@ public class DocController {
     }
 
     @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file,
+    public String upload(@RequestParam("file") MultipartFile file, HttpSession session,
                      @RequestParam(value = "doclist", required = false) String doc){
+        Integer id = (Integer) session.getAttribute("id");
         Doclist doclist = new Doclist();
         doclist = JSONObject.parseObject(doc, Doclist.class);
+        doclist.setTeacherId(id);
+        if (StrUtil.isNotEmpty(doclist.getName())){
+            Boolean classVos = iDocService.addById(doclist);
+            return "emp/doc";
+        }
         Path path = null;
         String name = null;
         try {

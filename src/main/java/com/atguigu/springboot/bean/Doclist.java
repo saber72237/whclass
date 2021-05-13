@@ -18,4 +18,5 @@ public class Doclist {
     private Integer classId;
     private String password;
     private String path;
+    private Integer teacherId;
 }

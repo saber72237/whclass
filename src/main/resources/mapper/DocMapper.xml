@@ -52,18 +52,21 @@
     </select>
 
     <insert id="addById">
-        INSERT into sys_class
+        INSERT into sys_doclist
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null  and id != ''">id,</if>
+            <if test="prefixId != null  and prefixId != ''">prefix_id,</if>
             <if test="teacherId != null  and teacherId != ''">teacher_id,</if>
+            <if test="classId != null  and classId != ''">class_id,</if>
+            <if test="password != null  and password != ''">password,</if>
             <if test="name != null  and name != ''">name,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null  and id != ''">#{id},</if>
+            <if test="prefixId != null  and prefixId != ''">#{prefixId},</if>
             <if test="teacherId != null  and teacherId != ''">#{teacherId},</if>
+            <if test="classId != null  and classId != ''">#{classId},</if>
+            <if test="password != null  and password != ''">#{password},</if>
             <if test="name != null  and name != ''">#{name},</if>
         </trim>
-        ON DUPLICATE KEY UPDATE
     </insert>
 
     <insert id="saveDoclist">
